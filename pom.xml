@@ -101,13 +101,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- 这个需要为 true 热部署才有效 -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <optional>true</optional>
-    </dependency>
-
     <!--MBG-->
     <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
     <dependency>
