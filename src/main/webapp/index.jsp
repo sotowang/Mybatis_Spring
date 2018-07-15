@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<button type="button" class="btn btn-success">（成功）Success</button>
+<button type="button" class="btn btn-success">Success</button>
 </body>
 
 </html>
