@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -46,12 +47,17 @@ public class MapperTest {
 //        employeeMapper.insertSelective(new Employee(null, "soto", "M", "kkkk@qq.com",1));
 
 //        3.批量插入多个员工；批量，使用可以执行批量操作的sqlSession
-        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
-        for (int i = 0; i < 1000; i++) {
-            String uid = UUID.randomUUID().toString().substring(0, 5);
-            mapper.insertSelective(new Employee(null, uid, "M", uid+"ess@qq.com", 1));
-        }
-        System.out.println("批量完成");
+//        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+//        for (int i = 0; i < 1000; i++) {
+//            String uid = UUID.randomUUID().toString().substring(0, 5);
+//            mapper.insertSelective(new Employee(null, uid, "M", uid+"ess@qq.com", 1));
+//        }
+//        System.out.println("批量完成");
 
+//        4.查询员工
+        List<Employee> employeeList = employeeMapper.selectByExampleWithDept(null);
+        for (Employee e : employeeList) {
+            System.out.println("Id:" + e.getEmpId()+"\n=======>Name: "+e.getEmpName());
+        }
     }
 }

@@ -6,7 +6,13 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    
     <typeAliases>
         <package name="com.soto.crud.bean"/>
     </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>
+    </plugins>
 </configuration>
