@@ -20,6 +20,57 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+        <%--员工添加的模态框--%>
+    <div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">员工添加</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="empName" class="form-control" id="empName_add_input" placeholder="姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="email" class="form-control" id="email_add_input" placeholder="xxx@qq.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input  type="radio" name="gender" id="gender1_add_input" checked="checked" value="M"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="gender" id="gender2_add_input" value="F"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">部门</label>
+                            <div class="col-sm-4">
+                                <%--部门提交部门id--%>
+                                <select class="form-control" name="dId">
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <%--搭建显示页面--%>
     <div class="container">
         <%--标题--%>
@@ -31,7 +82,7 @@
         <%--按钮--%>
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
-                <button type="button" class="btn btn-primary">新增</button>
+                <button id="emp_add_modal_btn" type="button" class="btn btn-primary">新增</button>
                 <button type="button" class="btn btn-danger">删除</button>
             </div>
 
@@ -203,6 +254,13 @@
             var navEle = $("<nav></nav>").append(ul);
             navEle.appendTo("#page_nav_area");
         }
+
+        $("#emp_add_modal_btn").click(function () {
+            $("#empAddModal").modal({
+                backdrop: "static"
+            });
+        })
+
     </script>
 </body>
 
