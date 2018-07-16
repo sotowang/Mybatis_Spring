@@ -57,7 +57,7 @@
                             <label class="col-sm-2 control-label">部门</label>
                             <div class="col-sm-4">
                                 <%--部门提交部门id--%>
-                                <select class="form-control" name="dId">
+                                <select class="form-control" name="dId" id="dept_add_select">
                                 </select>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
                 </div>
             </div>
         </div>
@@ -255,10 +255,37 @@
             navEle.appendTo("#page_nav_area");
         }
 
+        //点击新增的炮弹出模态框
         $("#emp_add_modal_btn").click(function () {
+            //发送ajax请求,查出部门信息,显示在下拉列表中
+            getDepts();
+            //弹出模态框
             $("#empAddModal").modal({
                 backdrop: "static"
             });
+        });
+        //查出所有的部门信息并显示在下拉列表中
+        function getDepts() {
+            $.ajax({
+                url: "${APP_PATH}/depts",
+                type: "GET",
+                success: function (result) {
+                    // console.log(result);
+                    //显示部门信息在下拉列表中
+                    $.each(result.extend.depts, function (index, item) {
+                        var optionEle = $("<option></option>")
+                            .append(item.deptName)
+                            .attr("value", item.deptId);
+                        optionEle.appendTo("#dept_add_select")
+
+                    });
+                }
+            });
+
+        }
+
+        $("#emp_save_btn").click(function () {
+            //1.将模态框中的数据提交
         })
 
     </script>
