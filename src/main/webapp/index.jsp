@@ -58,11 +58,10 @@
         <%--显示分页信息--%>
         <div class="row">
             <%--分页文字信息--%>
-            <div class="col-md-6">
-                当前  页,总  页,共 条记录
+            <div class="col-md-6" id="page_info_area">
             </div>
             <%--分页条信息>--%>
-            <div class="col-md-6">
+            <div class="col-md-6" id="page_nav_area">
 
             </div>
         </div>
@@ -71,19 +70,30 @@
     <script type="text/javascript">
         <%--1.页面加载完成以后,直接发送ajax请求,要到分页数据--%>
         $(function () {
+            to_page(1);
+        })
+
+        function to_page(pn) {
             $.ajax({
                 url: "${APP_PATH}/emps",
-                data: "pn=1",
+                data: "pn=" + pn,
                 type: "GET",
                 success: function (result) {
                     // console.log(result);
                     //1.解析并显示员工数据
                     build_emps_table(result);
                     //2.解析并显示分页信息
+                    build_page_info(result);
+                    //3.解析显示分页条数据
+                    build_page_nav(result);
                 }
             });
-        });
+        }
+
+
         function build_emps_table(result) {
+            //清空table表格
+            $("#emps_table tbody").empty();
             var emps = result.extend.pageInfo.list;
             $.each(emps, function (index, item) {
                 var empIdTd = $("<td></td>").append(item.empId);
@@ -116,8 +126,82 @@
                     .appendTo("#emps_table tbody");
             });
         }
+
+
+        //解析显示分页信息,点击分页条有动作
+        function build_page_info(result) {
+            $("#page_info_area").empty();
+            $("#page_info_area").append("当前 " +
+                result.extend.pageInfo.pageNum + "  页, 总 " +
+                result.extend.pageInfo.pages + " 页, 共 " +
+                result.extend.pageInfo.total + " 条记录");
+        }
+
+
         function build_page_nav(result) {
-            
+            $("#page_nav_area").empty();
+
+            var ul = $("<ul></ul>").addClass("pagination");
+            //构建元素
+            var firstPageLi = $("<li></li>")
+                .append($("<a></a>")
+                    .append("首页")
+                    .attr("href", "#"));
+            var prePageLi = $("<li></li>")
+                .append($("<a></a>")
+                    .append("&laquo;"));
+            if (result.extend.pageInfo.hasPreviousPage == false) {
+                firstPageLi.addClass("disabled");
+                prePageLi.addClass("disabled");
+            }else{
+                //为元素添加点击翻页事件
+                firstPageLi.click(function () {
+                    to_page(1);
+                });
+                prePageLi.click(function () {
+                    to_page(result.extend.pageInfo.pageNum - 1);
+                });
+            }
+
+            var lastPageLi = $("<li></li>")
+                .append($("<a></a>")
+                    .append("末页")
+                    .attr("href", "#"));
+            var nextPageLi = $("<li></li>")
+                .append($("<a></a>")
+                    .append("&raquo;"));
+            if (result.extend.pageInfo.hasNextPage == false) {
+                lastPageLi.addClass("disabled");
+                nextPageLi.addClass("disabled");
+            }else{
+                nextPageLi.click(function () {
+                    to_page(result.extend.pageInfo.pageNum + 1);
+                });
+                lastPageLi.click(function () {
+                    to_page(result.extend.pageInfo.pages);
+                });
+            }
+
+            //添加首页和前一页的提示
+            ul.append(firstPageLi).append(prePageLi);
+            //遍历给ul中添加页码提示
+            $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
+                var numLi = $("<li></li>")
+                    .append($("<a></a>")
+                        .append(item));
+                if (result.extend.pageInfo.pageNum == item) {
+                    numLi.addClass("active");
+                }
+                numLi.click(function () {
+                    to_page(item);
+                })
+                ul.append(numLi);
+            });
+            //添加下一页和末页提示
+            ul.append(nextPageLi).append(lastPageLi);
+
+            var navEle = $("<nav></nav>").append(ul);
+            navEle.appendTo("#page_nav_area");
         }
     </script>
 </body>
