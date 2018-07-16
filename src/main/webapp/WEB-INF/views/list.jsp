@@ -57,7 +57,7 @@
                         <th>${emp.department.deptName}</th>
                         <th>
                             <button type="button" class="btn btn-primary btn-sm" aria-label="Left Align">
-                                <span class="glyphicon glyphicon-penci" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 编辑
                             </button>
                             <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
