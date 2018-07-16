@@ -283,11 +283,33 @@
                     });
                 }
             });
+        }
 
+        //校验表单数据
+        function validate_add_form() {
+            //1.拿到要校验的数据,使用正则表达式
+            var empName = $("#empName_add_input").val();
+            var regName = /(^[a-zA-Z0-9_-]{5,16}$)|(^[\u4e00-\u9fa5]{2,5}$)/;
+            if (!regName.test(empName)) {
+                alert("用户名可以为2-5位中文或者6-16位英文和数字组合");
+                return false;
+            };
+            //校验邮箱信息
+            var email = $("#email_add_input").val();
+            var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            if (!regEmail.test(email)) {
+                alert("邮箱格式不正确");
+                return false;
+            }
+            return true;
         }
 
         $("#emp_save_btn").click(function () {
             //1.将模态框中的数据提交
+            //1.先对要提交的数据校验
+            if (!validate_add_form()) {
+                return false;
+            }
             //2.发送ajax请求保存员工
             $.ajax({
                 url: "${APP_PATH}/emp",
