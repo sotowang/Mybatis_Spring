@@ -119,6 +119,7 @@
     </div>
 
     <script type="text/javascript">
+        var totalRecord;
         <%--1.页面加载完成以后,直接发送ajax请求,要到分页数据--%>
         $(function () {
             to_page(1);
@@ -186,6 +187,7 @@
                 result.extend.pageInfo.pageNum + "  页, 总 " +
                 result.extend.pageInfo.pages + " 页, 共 " +
                 result.extend.pageInfo.total + " 条记录");
+            totalRecord = result.extend.pageInfo.total;
         }
 
 
@@ -286,6 +288,20 @@
 
         $("#emp_save_btn").click(function () {
             //1.将模态框中的数据提交
+            //2.发送ajax请求保存员工
+            $.ajax({
+                url: "${APP_PATH}/emp",
+                type: "POST",
+                data: $("#empAddModal form").serialize(),
+                success: function (result) {
+                    // alert(result.msg);
+                    //员工保存成功
+                    //1.关闭模态框
+                    $("#empAddModal").modal('hide');
+                    //2.来到最后一页,显示保存数据
+                    to_page(totalRecord);
+                }
+            });
         })
 
     </script>
