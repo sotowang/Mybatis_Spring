@@ -176,7 +176,7 @@
 </div>
 
     <script type="text/javascript">
-        var totalRecord;
+        var totalRecord,currentPage;
         <%--1.页面加载完成以后,直接发送ajax请求,要到分页数据--%>
         $(function () {
             to_page(1);
@@ -246,6 +246,7 @@
                 result.extend.pageInfo.pages + " 页, 共 " +
                 result.extend.pageInfo.total + " 条记录");
             totalRecord = result.extend.pageInfo.total;
+            currentPage =  result.extend.pageInfo.pageNum;
         }
 
 
@@ -514,8 +515,12 @@
                 type: "PUT",
                 data:$("#empUpdateModal form").serialize(),
                 success: function (result) {
-                    alert(result.msg);
+                    // alert(result.msg);
 
+                    //1.关闭对话框
+                    $("#empUpdateModal").modal("hide");
+                    //2.回到页面
+                    to_page(currentPage);
                 }
             });
 
