@@ -25,6 +25,31 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+
+    /**
+     * 检查用户名是否可用
+     * @param empName
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkuser")
+    public Msg checkuse(@RequestParam("empName") String empName) {
+        //判断用户名不否为合法表达式
+        String regx = "(^[a-zA-Z0-9_-]{5,16}$)|(^[\u4e00-\u9fa5]{2,5}$)";
+        if (!empName.matches(regx)) {
+            return Msg.fail().add("va_msg", "用户名可以为2-5位中文或者6-16位英文和数字组合");
+        }
+
+        //数据库用户名重复校验
+        boolean b =  employeeService.checkUser(empName);
+        if (b) {
+            return Msg.success().add("va_msg", "用户名可用");
+        }else {
+            return Msg.fail().add("va_msg", "用户名不可用");
+        }
+    }
+
+
     /**
      * 员工保存
      * @return
