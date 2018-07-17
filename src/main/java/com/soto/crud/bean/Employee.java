@@ -18,6 +18,9 @@ public class Employee {
 
     private Integer dId;
 
+
+
+
 //    希望查询员工的同时部门信息也是查询好的
     private Department department;
 
@@ -78,5 +81,17 @@ public class Employee {
 
     public void setdId(Integer dId) {
         this.dId = dId;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", dId=" + dId +
+                ", department=" + department +
+                '}';
     }
 }

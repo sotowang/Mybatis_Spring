@@ -27,6 +27,39 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    /**
+     *
+     * 如果直接发送ajax为PUT的请求
+     * 封装数据
+     * Employee
+     * 问题:  请求体中有数据,但Employee对象封装不上;
+     *
+     * 原因:
+     *      Tomcat: 1.将请求体中的数据封装为一个map
+     *              2.request.getParameter("empName)就会从map中取值
+     *              3.SpringMVC封装POJO对象的时候
+     *                  会把POJO中的每个属性的值,request.getParameter("email")
+     *  AJAX发送PUT请求  request.getParameter("email")拿不到
+     *      Tomcat一看为PUT不会封装请求体中的数据,POST才会封装为map
+     * 员工更新
+     * @param employee
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/emp/{empId}",method = RequestMethod.PUT)
+    public Msg saveEmp(Employee employee) {
+        System.out.println("将要更新的员工数据: " + employee.toString());
+
+        employeeService.uppdateEmp(employee);
+        return Msg.success();
+    }
+
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/emp/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Msg getEmp(@PathVariable("id") Integer id) {

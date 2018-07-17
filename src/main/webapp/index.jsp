@@ -470,6 +470,8 @@
             //2.查出员工信息,显示员工信息
             getEmp($(this).attr("edit_id"));
 
+            //3.把员工id传递给更新按钮
+            $("#emp_update_btn").attr("edit_id", $(this).attr("edit_id"));
 
             //弹出模态框
             $("#empUpdateModal").modal({
@@ -492,6 +494,33 @@
                 }
             });
         }
+
+        //点击更新员工信息
+        $("#emp_update_btn").click(function () {
+            //验证邮箱是否合法
+            //校验邮箱信息
+            var email = $("#email_update_input").val();
+            var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            if (!regEmail.test(email)) {
+                //应该清空之前元素
+                show_validate_msg("#email_update_input", "error", "邮箱格式不正确");
+                return false;
+            }else{
+                show_validate_msg("#email_update_input", "success", "");
+            }
+            //发送ajax请求,保存更新信息
+            $.ajax({
+                url: "${APP_PATH}/emp/" + $(this).attr("edit_id"),
+                type: "PUT",
+                data:$("#empUpdateModal form").serialize(),
+                success: function (result) {
+                    alert(result.msg);
+
+                }
+            });
+
+        });
+
 
     </script>
 </body>

@@ -57,4 +57,11 @@ public class EmployeeService {
         Employee employee = employeeMapper.selectByPrimaryKey(id);
         return employee;
     }
+
+    /**
+     * 员工更新
+     */
+    public void uppdateEmp(Employee employee) {
+        employeeMapper.updateByPrimaryKeySelective(employee);
+    }
 }
