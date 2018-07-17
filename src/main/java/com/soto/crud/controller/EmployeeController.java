@@ -27,6 +27,15 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    @ResponseBody
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.DELETE)
+    public Msg deleteEmpById(@PathVariable("id") Integer id) {
+        employeeService.deleteEmp(id);
+        return Msg.success();
+    }
+
+
+
     /**
      *
      * 如果直接发送ajax为PUT的请求

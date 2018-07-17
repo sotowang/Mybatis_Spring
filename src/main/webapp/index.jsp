@@ -221,9 +221,14 @@
                                 .append("编辑"));
                 //为编辑按钮添加自定义属性,表示当前员工id
                 editBtn.attr("edit_id", item.empId);
+
+
                 var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                     .append($("<span></span>").addClass("glyphicon glyphicon-trash")
                         .append("删除"));
+                //为删除按钮添加自定义属性,表示当前员工id
+                delBtn.attr("del_id", item.empId);
+
                 var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
                 //append方法执行完成以后还是返回原来元素
                 $("<tr></tr>")
@@ -523,6 +528,25 @@
                     to_page(currentPage);
                 }
             });
+        });
+
+        //单个删除
+        $(document).on("click", ".delete_btn", function () {
+            //1.确认删除对话框
+            var empName = $(this).parents("tr").find("td:eq(1)").text();
+            var empId = $(this).attr("del_id");
+            // alert($(this).parents("tr").find("td:eq(1)").text());
+            if (confirm("确认删除[" + empName + "]吗?")) {
+                $.ajax({
+                    url: "${APP_PATH}/emp/" + empId,
+                    type: "DELETE",
+                    success: function (result) {
+                        alert(result.msg);
+                        //回到本页
+                        to_page(currentPage);
+                    }
+                })
+            }
 
         });
 
