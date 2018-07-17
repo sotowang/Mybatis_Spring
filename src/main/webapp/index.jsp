@@ -378,11 +378,27 @@
             data: $("#empAddModal form").serialize(),
             success: function (result) {
                 // alert(result.msg);
-                //员工保存成功
-                //1.关闭模态框
-                $("#empAddModal").modal('hide');
-                //2.来到最后一页,显示保存数据
-                to_page(totalRecord);
+                if (result.code == 100) {
+                    //员工保存成功
+                    //1.关闭模态框
+                    $("#empAddModal").modal('hide');
+                    //2.来到最后一页,显示保存数据
+                    to_page(totalRecord);
+                }else {
+                    //显示失败信息
+                    // console.log(result);
+                    //有哪个字段的错误信息显示哪个字段
+                    if (undefined != result.extend.errorFields.email) {
+                        //显示邮箱错误信息
+                        show_validate_msg("#email_add_input", "error", result.extend.errorFields.email);
+                    }
+                    if (undefined != result.extend.errorFields.empName) {
+                        //显示员工名字错误信息
+                        show_validate_msg("#empName_add_input", "error", result.extend.errorFields.empName);
+                    }
+
+
+                }
             }
         });
     })

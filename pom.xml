@@ -137,6 +137,22 @@
       <version>2.8.9</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+    <!--JSR303数据校验
+    tomcat7及以上的服务器
+    tomcat7及以下的服务器,需要给服务器lib包中替换新的标准el-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.4.1.Final</version>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>javax.el</groupId>-->
+      <!--<artifactId>javax.el-api</artifactId>-->
+      <!--<version>3.0.0</version>-->
+    <!--</dependency>-->
+
+
 
   </dependencies>
 
