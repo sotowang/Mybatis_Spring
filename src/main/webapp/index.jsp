@@ -150,6 +150,7 @@
             <table class="table table-hover" id="emps_table">
                 <thead>
                 <tr>
+                    <th><input type="checkbox" id="check_all"/>全选</th>
                     <th>Id</th>
                     <th>姓名</th>
                     <th>性别</th>
@@ -205,6 +206,7 @@
             $("#emps_table tbody").empty();
             var emps = result.extend.pageInfo.list;
             $.each(emps, function (index, item) {
+                var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>")
                 var empIdTd = $("<td></td>").append(item.empId);
                 var empNameTd = $("<td></td>").append(item.empName);
                 var genderTd = $("<td></td>").append(item.gender == "M" ? "男" : "女");
@@ -232,6 +234,7 @@
                 var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
                 //append方法执行完成以后还是返回原来元素
                 $("<tr></tr>")
+                    .append(checkBoxTd)
                     .append(empIdTd)
                     .append(empNameTd)
                     .append(genderTd)
@@ -547,6 +550,23 @@
                     }
                 })
             }
+
+        });
+
+        //完成全选/全不选功能
+        $("#check_all").click(function () {
+            //attr获取checked  为undefined
+            //我们这些dom原生属性;   attr获取自定义属性的值
+            //prop修改和读取dom原生属性的值
+            // alert($(this).prop("checked"));
+            $(".check_item").prop("checked", $(this).prop("checked"));
+        });
+
+        //check_item
+        $(document).on("click", ".check_item", function () {
+            //判断当前选择中的元素是否为5个
+            var flag = $(".check_item:checked").length==$(".check_item").length
+            $("#check_all").prop("checked", flag);
 
         });
 
