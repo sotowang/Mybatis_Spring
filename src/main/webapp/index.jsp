@@ -140,7 +140,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-8">
             <button id="emp_add_modal_btn" type="button" class="btn btn-primary">新增</button>
-            <button type="button" class="btn btn-danger">删除</button>
+            <button id="emp_delete_all_btn" type="button" class="btn btn-danger">删除</button>
         </div>
 
     </div>
@@ -536,7 +536,7 @@
         //单个删除
         $(document).on("click", ".delete_btn", function () {
             //1.确认删除对话框
-            var empName = $(this).parents("tr").find("td:eq(1)").text();
+            var empName = $(this).parents("tr").find("td:eq(2)").text();
             var empId = $(this).attr("del_id");
             // alert($(this).parents("tr").find("td:eq(1)").text());
             if (confirm("确认删除[" + empName + "]吗?")) {
@@ -567,6 +567,37 @@
             //判断当前选择中的元素是否为5个
             var flag = $(".check_item:checked").length==$(".check_item").length
             $("#check_all").prop("checked", flag);
+
+        });
+
+        //点击全部删除,批量删除
+        $("#emp_delete_all_btn").click(function () {
+
+            var empNames = "";
+            var del_idstr = "";
+            $.each($(".check_item:checked"), function () {
+                empNames += $(this).parents("tr").find("td:eq(2)").text() + ",";
+                del_idstr += $(this).parents("tr").find("td:eq(1)").text() + "-";
+            });
+            //去除empsName多余的","
+            empNames = empNames.substring(0, empNames.length - 1);
+            //删除钦命的"-"
+            del_idstr = del_idstr.substring(0, del_idstr.length - 1);
+            if (confirm("确认删除[" + empNames + "]删除吗?")) {
+                //发送ajax请求
+                $.ajax({
+                    url: "${APP_PATH}/emp/" + del_idstr,
+                    type: "DELETE",
+                    success: function (result) {
+                        alert(result.msg);
+                        //回到当前
+                        to_page(currentPage);
+                    }
+
+                });
+
+
+            }
 
         });
 
