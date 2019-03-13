@@ -1,6 +1,5 @@
 package com.soto.crud.test;
 
-import com.soto.crud.bean.Department;
 import com.soto.crud.bean.Employee;
 import com.soto.crud.dao.DepartmentMapper;
 import com.soto.crud.dao.EmployeeMapper;
@@ -12,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 测试dao层工作
@@ -21,7 +19,7 @@ import java.util.UUID;
  * 2.@ContextConfiguration指定spring配置文件位置
  * 3.直接Autowired
  */
-@ContextConfiguration(locations={"classpath:applicationContext.xml"})
+@ContextConfiguration(locations={"classpath:applicationContext_1.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MapperTest {
     @Autowired

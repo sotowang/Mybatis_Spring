@@ -23,7 +23,7 @@ import java.util.List;
  * 需要servlet-3.0支持
  */
 @WebAppConfiguration
-@ContextConfiguration(locations={"classpath:applicationContext.xml","file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
+@ContextConfiguration(locations={"classpath:applicationContext_1.xml","file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MvcTest {
 //    传入Springmvc的ioc
