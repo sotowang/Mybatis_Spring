@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.soto</groupId>
-  <artifactId>ssm-crud</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>Mybatis_Spring</artifactId>
+  <version>1.0</version>
   <packaging>war</packaging>
 
   <name>ssm-crud Maven Webapp</name>
