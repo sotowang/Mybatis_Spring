@@ -12,7 +12,7 @@
 
     <!--<context:compent-scan base-package="com.soto.spring.service.impl"/>-->
 
-    <context:component-scan base-package="com.soto.spring.service">
+    <context:component-scan base-package="com.soto.spring.service.impl">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -23,5 +23,23 @@
         <property name="username" value="root"></property>
         <property name="password" value="123456"></property>
     </bean>
+
+    <!--==================================配置MyBatis整合================================-->
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--指定MyBatis全局配置文件位置-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <!--指定mybatis  mapper文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="typeAliasesPackage" value="com.soto.**.model"/>
+    </bean>
+
+    <!--配置扫描器  将mybatis接口实现加入到ioc容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描所有dao接口的实现,加入到ioc容器中-->
+        <property name="basePackage" value="com.soto.**.dao"/>
+    </bean>
+
+
 
 </beans>

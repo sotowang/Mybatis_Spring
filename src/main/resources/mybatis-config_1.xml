@@ -5,13 +5,10 @@
 <configuration>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="LOG4J"/>
-        <setting name="cacheEnabled" value="true"/>
-        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
-
+    
     <typeAliases>
-        <package name="com.soto.spring.model"/>
+        <package name="com.soto.crud.bean"/>
     </typeAliases>
 
     <plugins>
